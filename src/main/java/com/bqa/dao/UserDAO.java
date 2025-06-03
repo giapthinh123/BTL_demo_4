@@ -1,14 +1,11 @@
 package com.bqa.dao;
 
-import com.bqa.service.DBconn;
+import com.bqa.util.DBconn;
 import com.bqa.model.User;
-import com.bqa.service.DBconn;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserDAO {
     public User getUserById(int userId) {

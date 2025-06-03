@@ -33,13 +33,11 @@ public class CheckoutServlet extends HttpServlet {
     private CartService cartService;
     private OrderService orderService;
     private productServiece productServiece;
-    private UserService userService;
 
     public void init() {
         cartService = new CartService();
         orderService = new OrderService();
         productServiece = new productServiece();
-        userService = new UserService();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -310,10 +308,6 @@ public class CheckoutServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/checkout");
     }
 
-    /**
-     * Updates product quantities after a successful order
-     * @param cartItems List of cart items to update quantities for
-     */
     private void updateProductQuantities(List<CartItem> cartItems) {
         if (cartItems != null) {
             for (CartItem item : cartItems) {
@@ -343,44 +337,15 @@ public class CheckoutServlet extends HttpServlet {
 
     private void showSuccess(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        HttpSession session = request.getSession();
-        
-        // Get order ID from session
-        Integer orderId = (Integer) session.getAttribute("orderId");
-        if (orderId == null) {
-            response.sendRedirect(request.getContextPath() + "/");
-            return;
-        }
-        
-        // Get order details
-        Order order = orderService.getOrder(orderId);
-        if (order == null) {
-            response.sendRedirect(request.getContextPath() + "/");
-            return;
-        }
-        
-        // Get order items
-        List<OrderItem> orderItems = orderService.getOrderItems(orderId);
-        
-        // Set attributes for JSP
-        request.setAttribute("order", order);
-        request.setAttribute("orderItems", orderItems);
-        
-        // Clear order ID from session
-        session.removeAttribute("orderId");
-        
-        // Forward to success page
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/checkout-success.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showConfirm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        HttpSession session = request.getSession();
 
-        // Forward to confirm page
         RequestDispatcher dispatcher = request.getRequestDispatcher("/checkout-confirm.jsp");
         dispatcher.forward(request, response);
     }
-
 }

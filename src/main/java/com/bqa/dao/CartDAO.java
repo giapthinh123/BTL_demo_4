@@ -2,7 +2,7 @@ package com.bqa.dao;
 
 import com.bqa.model.Cart;
 import com.bqa.model.CartItem;
-import com.bqa.service.DBconn;
+import com.bqa.util.DBconn;
 
 import java.sql.*;
 import java.util.ArrayList;

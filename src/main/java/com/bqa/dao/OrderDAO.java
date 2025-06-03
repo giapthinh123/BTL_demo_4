@@ -2,7 +2,7 @@ package com.bqa.dao;
 
 import com.bqa.model.Order;
 import com.bqa.model.OrderItem;
-import com.bqa.service.DBconn;
+import com.bqa.util.DBconn;
 
 import java.sql.*;
 import java.util.ArrayList;

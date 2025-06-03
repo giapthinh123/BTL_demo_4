@@ -159,30 +159,27 @@ public class AdminCategoryServlet extends HttpServlet {
         category_edit.setCategoryId(Integer.parseInt(categoryId));
         category_edit.setName(name);
         category_edit.setDescription(description);
-        category_edit.setParentId(Integer.parseInt(parentIdStr));
         category_edit.setStatus(status_seen);
-
+        category_edit.setParentId(Integer.parseInt(parentIdStr));
         // kiem tra ko dc la danh muc con cua chinh no
-        if (!parentIdStr.isEmpty() && !parentIdStr.equals("0")) {
-            if (category_edit.getCategoryId() == Integer.parseInt(parentIdStr)) {
-                request.setAttribute("error", "Danh mục không thể là danh mục cha của chính nó");
+        if (category_edit.getCategoryId() == Integer.parseInt(parentIdStr)) {
+            request.setAttribute("error", "Danh mục không thể là danh mục cha của chính nó");
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/categories");
-                dispatcher.forward(request, response);
-                return;
-            }
-            boolean success = categoryService.updateCategory(category_edit);
-
-            if (success) {
-                request.setAttribute("message", "Danh mục đã được cập nhật thành công");
-                response.sendRedirect(request.getContextPath() + "/admin/categories");
-            } else {
-
-                request.setAttribute("error", "Có lỗi xảy ra khi cập nhật danh mục");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/categories");
-                dispatcher.forward(request, response);
-            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/categories");
+            dispatcher.forward(request, response);
+            return;
         }
+        boolean success = categoryService.updateCategory(category_edit);
+
+        if (success) {
+            request.setAttribute("message", "Danh mục đã được cập nhật thành công");
+            response.sendRedirect(request.getContextPath() + "/admin/categories");
+        } else {
+
+            request.setAttribute("error", "Có lỗi xảy ra khi cập nhật danh mục");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/categories");
+            dispatcher.forward(request, response);
+            }
     }
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response)

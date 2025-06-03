@@ -1,7 +1,7 @@
 package com.bqa.dao;
 
 import com.bqa.model.Product;
-import com.bqa.service.DBconn;
+import com.bqa.util.DBconn;
 import com.bqa.model.reviews;
 import java.sql.*;
 import java.util.ArrayList;

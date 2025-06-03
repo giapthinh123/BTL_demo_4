@@ -286,7 +286,7 @@
                                 <div class="mb-3">
                                     <label for="editParentId" class="form-label">Danh mục cha</label>
                                     <select class="form-select" id="editParentId" name="parentId">
-                                        <option value="">Không có</option>
+                                        <option value="0">Không có</option>
                                         <c:forEach items="${categories}" var="parent">
                                             <option value="${parent.categoryId}">${parent.name}</option>
                                         </c:forEach>
@@ -358,9 +358,8 @@
                         document.getElementById('editCategoryId').value = id;
                         document.getElementById('editName').value = name;
                         document.getElementById('editDescription').value = description;
-                        document.getElementById('editParentId').value = parentId;
+                        document.getElementById('editParentId').value = parentId || '0';
                         document.getElementById('editStatus').checked = status;
-
 
                         const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
                         editCategoryModal.show();

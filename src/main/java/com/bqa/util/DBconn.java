@@ -1,4 +1,4 @@
-package com.bqa.service;
+package com.bqa.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,7 +1,7 @@
 package com.bqa.dao;
 
 import com.bqa.model.Category;
-import com.bqa.service.DBconn;
+import com.bqa.util.DBconn;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class categoryDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
-            if (category.getCategoryId() == 0) {
+            if (category.getParentId() == 0) {
                 stmt.setNull(3, Types.INTEGER);
             } else {
                 stmt.setInt(3, category.getParentId());
@@ -186,7 +186,11 @@ public class categoryDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
-            stmt.setInt(3, category.getParentId());
+            if (category.getParentId() == 0) {
+                stmt.setNull(3, Types.INTEGER);
+            } else {
+                stmt.setInt(3, category.getParentId());
+            }
             stmt.setInt(4, category.getStatus());
             stmt.setInt(5, category.getCategoryId());
             stmt.executeUpdate();
